@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "kotlinx-coroutines-observable-js-test-ts",
+  "version": "1.0.0",
+  "devDependencies": {
+    "kotlinx-coroutines-observable-js-test-ir": "*",
+    "kotlinx-coroutines-observable-js-test-legacy": "*",
+    "typescript": "^4.0.2"
+  }
+}

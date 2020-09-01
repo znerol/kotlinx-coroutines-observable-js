@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "kotlinx-coroutines-observable-js",
+  "workspaces": [
+    "build/js/packages/*",
+    "test-ts"
+  ]
+}
