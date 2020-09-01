@@ -4,7 +4,6 @@
   "workspaces": {
     "packages": [
       "build/js/packages/*",
-      "test-js",
       "test-ts"
     ],
     "nohoist": [

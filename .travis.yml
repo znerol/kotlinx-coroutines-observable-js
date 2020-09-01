@@ -2,33 +2,18 @@
 os: linux
 dist: bionic
 language: java
+addons:
+  firefox: latest
+  chrome: stable
 
-install: ./gradlew assemble && yarn install
+env:
+  - KOTLIN_JS_COMPILER=ir
+  - KOTLIN_JS_COMPILER=legacy
+  - TARGET_ENGINE=test.chrome
+  - TARGET_ENGINE=test.firefox
+  - TARGET_ENGINE=test.node
 
-jobs:
-  include:
-    - name: Node JavaScript
-      script: cd test-js && npm run test.node
-
-    - name: Firefox JavaScript
-      addons:
-        firefox: latest
-      script: cd test-js && npm run test.firefox
-
-    - name: Chrome JavaScript
-      addons:
-        chrome: stable
-      script: cd test-js && npm run test.chrome
-
-    - name: Node TypeScript
-      script: cd test-ts && npm run test.node
-
-    - name: Firefox TypeScript
-      addons:
-        firefox: latest
-      script: cd test-ts && npm run test.firefox
-
-    - name: Chrome TypeScript
-      addons:
-        chrome: stable
-      script: cd test-ts && npm run test.chrome
+install: >
+    ./gradlew assemble -Pkotlin.js.compiler=${KOTLIN_JS_COMPILER}
+    && yarn install
+script: cd test-ts && npm run ${TARGET_ENGINE}
