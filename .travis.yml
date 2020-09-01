@@ -7,11 +7,12 @@ addons:
   chrome: stable
 
 env:
-  - KOTLIN_JS_COMPILER=ir
-  - KOTLIN_JS_COMPILER=legacy
-  - TARGET_ENGINE=test.chrome
-  - TARGET_ENGINE=test.firefox
-  - TARGET_ENGINE=test.node
+  - KOTLIN_JS_COMPILER=ir       TARGET_ENGINE=test.chrome
+  - KOTLIN_JS_COMPILER=ir       TARGET_ENGINE=test.firefox
+  - KOTLIN_JS_COMPILER=ir       TARGET_ENGINE=test.node
+  - KOTLIN_JS_COMPILER=legacy   TARGET_ENGINE=test.chrome
+  - KOTLIN_JS_COMPILER=legacy   TARGET_ENGINE=test.firefox
+  - KOTLIN_JS_COMPILER=legacy   TARGET_ENGINE=test.node
 
 install: >
     ./gradlew assemble -Pkotlin.js.compiler=${KOTLIN_JS_COMPILER}
