@@ -13,5 +13,6 @@ dependencies {
 kotlin {
     js(BOTH) {
         browser()
+        nodejs()
     }
 }
