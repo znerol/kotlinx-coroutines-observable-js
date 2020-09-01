@@ -3,6 +3,7 @@
   "name": "kotlinx-coroutines-observable-js",
   "workspaces": [
     "build/js/packages/*",
+    "test-js",
     "test-ts"
   ]
 }
