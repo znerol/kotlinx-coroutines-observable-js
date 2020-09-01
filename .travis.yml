@@ -1,0 +1,34 @@
+---
+os: linux
+dist: bionic
+language: java
+
+install: ./gradlew assemble && yarn install
+
+jobs:
+  include:
+    - name: Node JavaScript
+      script: cd test-js && npm run test.node
+
+    - name: Firefox JavaScript
+      addons:
+        firefox: latest
+      script: cd test-js && npm run test.firefox
+
+    - name: Chrome JavaScript
+      addons:
+        chrome: stable
+      script: cd test-js && npm run test.chrome
+
+    - name: Node TypeScript
+      script: cd test-ts && npm run test.node
+
+    - name: Firefox TypeScript
+      addons:
+        firefox: latest
+      script: cd test-ts && npm run test.firefox
+
+    - name: Chrome TypeScript
+      addons:
+        chrome: stable
+      script: cd test-ts && npm run test.chrome
