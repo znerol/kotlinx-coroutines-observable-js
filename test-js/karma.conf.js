@@ -1,12 +1,6 @@
 module.exports = function(config) {
     config.set({
-        frameworks: [
-            "mocha",
-            "chai"
-        ],
-        plugins: [
-            "karma-webpack",
-        ],
+        frameworks: ["chai", "mocha"],
         reporters: ["progress"],
         port: 9876,  // karma web server port
         colors: true,
@@ -20,11 +14,11 @@ module.exports = function(config) {
             }
         ],
         preprocessors: {
-            "*.spec.js": ["webpack"],
+            "*.spec.js": ["webpack", "sourcemap"],
         },
         webpack: {
+            devtool: "inline-source-map",
         },
-
         webpackMiddleware: {
             stats: 'errors-only',
         },

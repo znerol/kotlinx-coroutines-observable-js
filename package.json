@@ -1,9 +1,14 @@
 {
   "private": true,
   "name": "kotlinx-coroutines-observable-js",
-  "workspaces": [
-    "build/js/packages/*",
-    "test-js",
-    "test-ts"
-  ]
+  "workspaces": {
+    "packages": [
+      "build/js/packages/*",
+      "test-js",
+      "test-ts"
+    ],
+    "nohoist": [
+      "**/karma*"
+    ]
+  }
 }
