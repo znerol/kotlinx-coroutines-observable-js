@@ -6,8 +6,8 @@ group = "ch.znerol.kotlinx"
 version = "1.0.0"
 
 dependencies {
-    implementation(kotlin("stdlib-js"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.3.9")
     implementation(project(":lib"))
 }
 
