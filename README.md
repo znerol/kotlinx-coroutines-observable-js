@@ -1,6 +1,8 @@
 Kotlin flow compatibility with TC39 observable
 ==============================================
 
+[![Build Status](https://travis-ci.org/znerol/kotlinx-coroutines-observable-js.svg?branch=master)](https://travis-ci.org/znerol/kotlinx-coroutines-observable-js)
+
 Turns a [katlin flow][1] into a [TC39 SubscriberFunction][2] suitable for
 consumption by compliant reactive frameworks such as [rxjs][3] and
 [zen-observable][4].
