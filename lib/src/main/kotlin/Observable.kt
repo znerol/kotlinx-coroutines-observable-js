@@ -1,4 +1,4 @@
-package ch.zenrol.kotlinx.coroutines.observable
+package ch.znerol.kotlinx.coroutines.observable
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
