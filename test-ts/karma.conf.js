@@ -14,8 +14,10 @@ module.exports = function(config) {
         files: [
             {
                 pattern: "*.spec.ts",
-            }
-        ]
-    })
+            },
+        ],
+        karmaTypescriptConfig: {
+            tsconfig: "./tsconfig.json",
+        },
+    });
 }
-
