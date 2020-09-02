@@ -7,7 +7,7 @@ describe('kotlinx.coroutines.observable', () => {
     it('intFlow returns [1,2,3]', done => {
         const observable = new Observable(intFlow);
         observable
-            .reduce((carry, val) => carry.concat([val]), [])
+            .reduce((carry: number[], val: number) => carry.concat([val]), [])
             .subscribe(ints => {
                 expect(ints).to.deep.equal([1,2,3]);
                 done();
