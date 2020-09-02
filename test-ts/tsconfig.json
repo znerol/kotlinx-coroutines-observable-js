@@ -4,6 +4,6 @@
     "lib": ["es6"],
     "module": "commonjs",
     "sourceMap": true,
-    "target": "ES5"
+    "target": "es6"
   }
 }
