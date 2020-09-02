@@ -42,6 +42,7 @@ fun <T> Flow<T>.asSubscriber(scope: CoroutineScope = GlobalScope): SubscriberFun
     }
 }
 
+@JsExport
 external interface SubscriptionObserver<T> {
     // Sends the next value in the sequence
     fun next(value: T)
@@ -56,6 +57,7 @@ external interface SubscriptionObserver<T> {
     val closed: Boolean
 }
 
+@JsExport
 external interface Subscription {
     // Cancels the subscription
     fun unsubscribe(): Unit
