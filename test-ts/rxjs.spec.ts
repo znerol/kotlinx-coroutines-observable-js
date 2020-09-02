@@ -4,7 +4,7 @@ import { catchError, toArray } from 'rxjs/operators';
 
 import { intFlow, throwEvenFlow } from "kotlinx-coroutines-observable-js-test-kt"
 
-describe('kotlinx.coroutines.observable JS/IR', () => {
+describe('kotlinx.coroutines.observable', () => {
     it('intFlow returns [1,2,3]', done => {
         const observable = new Observable(intFlow);
         observable.pipe(toArray()).subscribe(ints => {
