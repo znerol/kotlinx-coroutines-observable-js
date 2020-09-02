@@ -1,8 +1,8 @@
-import { Observable } from "rxjs"
+import { Observable, of } from "rxjs"
 import { expect } from "chai"
-import { toArray } from 'rxjs/operators';
+import { catchError, toArray } from 'rxjs/operators';
 
-import { intFlow } from "kotlinx-coroutines-observable-js-test-kt"
+import { intFlow, throwEvenFlow } from "kotlinx-coroutines-observable-js-test-kt"
 
 describe('kotlinx.coroutines.observable JS/IR', () => {
     it('intFlow returns [1,2,3]', done => {
@@ -12,4 +12,22 @@ describe('kotlinx.coroutines.observable JS/IR', () => {
             done();
         });
     });
+
+    it('throwEvenFlow throws after [1]', done => {
+        const observable = new Observable(throwEvenFlow);
+        observable
+            .pipe(
+                catchError(err => {
+                    expect(err).to
+                        .be.an.instanceOf(Error)
+                        .with.property('message', 'Only odd values allowed');
+                    return of(-1);
+                })
+            )
+            .pipe(toArray())
+            .subscribe(ints => {
+                expect(ints).to.deep.equal([1, -1]);
+                done();
+            })
+    })
 })
