@@ -41,6 +41,7 @@ fun printInKotlin(observable: Observable<Int>) {
         }
     }
 }
+```
 
 Call exported function from JavaScript/TypeScript:
 
