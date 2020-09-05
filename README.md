@@ -36,7 +36,7 @@ Define and export a function which accepts an observable in kotlin:
 @JsExport
 fun printInKotlin(observable: Observable<Int>) {
     GlobalScope.launch {
-        observable.toFlow().collect { value ->
+        observable.asFlow().collect { value ->
             print(value)
         }
     }
