@@ -1,8 +1,8 @@
 import { Observable, of } from "rxjs"
-import { expect } from "chai"
-import { catchError, toArray } from 'rxjs/operators';
+import { assert, expect } from "chai"
+import { map, catchError, toArray } from 'rxjs/operators';
 
-import { intFlow, throwEvenFlow } from "kotlinx-coroutines-observable-js-test-kt"
+import { intFlow, throwEvenFlow, collectInKotlin } from "kotlinx-coroutines-observable-js-test-kt"
 
 describe('kotlinx.coroutines.observable', () => {
     it('intFlow returns [1,2,3]', done => {
@@ -30,4 +30,31 @@ describe('kotlinx.coroutines.observable', () => {
                 done();
             })
     })
+
+    it('collects rxjs observable in kotlin', async () => {
+        const observable = of(1, 2, 3);
+        const result = await collectInKotlin(observable)
+        expect(result).to.deep.equal([1, 2, 3])
+    });
+
+    it('kotlin rethrows errors occuring when collecting rxjs observable', async () => {
+        const observable = of(1, 2, 3).pipe(
+            map(x => {
+                if (x % 2 === 0) {
+                    throw Error("Only odd values allowed");
+                }
+                return x;
+            })
+        );
+
+        try {
+            await collectInKotlin(observable)
+            assert.fail("collectInKotlin failed to throw");
+        }
+        catch(err) {
+            expect(err).to
+                .be.an.instanceOf(Error)
+                .with.property('message', 'Only odd values allowed');
+        }
+    });
 })

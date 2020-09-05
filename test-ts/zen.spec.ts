@@ -1,7 +1,7 @@
 import Observable from "zen-observable"
-import { expect } from "chai"
+import { assert, expect } from "chai"
 
-import { intFlow, throwEvenFlow } from "kotlinx-coroutines-observable-js-test-kt"
+import { intFlow, throwEvenFlow, collectInKotlin } from "kotlinx-coroutines-observable-js-test-kt"
 
 describe('kotlinx.coroutines.observable', () => {
     it('intFlow returns [1,2,3]', done => {
@@ -29,5 +29,30 @@ describe('kotlinx.coroutines.observable', () => {
                     .with.property('message', 'Only odd values allowed');
                 done();
             });
+    });
+
+    it('collects zen-observable in kotlin', async () => {
+        const observable = Observable.of(1, 2, 3);
+        const result = await collectInKotlin(observable)
+        expect(result).to.deep.equal([1, 2, 3])
+    });
+
+    it('kotlin rethrows errors occuring when collecting zen-observable', async () => {
+        const observable = Observable.of(1, 2, 3).map(x => {
+            if (x % 2 === 0) {
+                throw Error("Only odd values allowed");
+            }
+            return x;
+        });
+
+        try {
+            await collectInKotlin(observable)
+            assert.fail("collectInKotlin failed to throw");
+        }
+        catch(err) {
+            expect(err).to
+                .be.an.instanceOf(Error)
+                .with.property('message', 'Only odd values allowed');
+        }
     });
 });
