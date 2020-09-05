@@ -1,6 +1,5 @@
 plugins {
     id("org.jetbrains.dokka") version "1.4.0-rc"
-    id("com.jfrog.bintray") version "1.8.5"
     `maven-publish`
 }
 
@@ -45,9 +44,6 @@ val pomDesc = "Kotlin flow compatibility with TC39 observable"
 val pomScmConnection = "scm:git:git://github.com/znerol/kotlinx-coroutines-observable-js"
 val pomScmDevConnection = "scm:git:git://github.com/znerol/kotlinx-coroutines-observable-js"
 
-val githubRepo = "znerol/kotlinx-coroutines-observable-js"
-val githubReadme = "README.md"
-
 val pomLicenseName = "The Apache Software License, Version 2.0"
 val pomLicenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.txt"
 val pomLicenseDist = "repo"
@@ -86,30 +82,19 @@ publishing {
             }
         }
     }
-}
 
-bintray {
-    user = System.getenv("BINTRAY_USER")
-    key = System.getenv("BINTRAY_KEY")
-    publish = true
+    repositories {
+        maven {
+            val org = "znerol"
+            val repo = "kotlinx"
+            val name = "kotlinx-coroutines-observable-js"
 
-    setPublications("lib")
+            url = uri("https://api.bintray.com/maven/$org/$repo/$name/;publish=1")
 
-    pkg.apply {
-        repo = "kotlinx"
-        name = rootProject.name
-        setLicenses("Apache-2.0")
-        setLabels("Kotlin", "Coroutines", "JavaScript")
-        vcsUrl = pomScmUrl
-        websiteUrl = pomUrl
-        issueTrackerUrl = pomIssueUrl
-        githubRepo = githubRepo
-        githubReleaseNotesFile = githubReadme
-
-        version.apply {
-            name = rootProject.version.toString()
-            desc = pomDesc
-            vcsTag = "v${rootProject.version}"
+            credentials {
+                username = System.getenv("BINTRAY_USER")
+                password = System.getenv("BINTRAY_API_KEY")
+            }
         }
     }
 }
