@@ -7,14 +7,27 @@ addons:
   chrome: stable
 
 env:
-  - KOTLIN_JS_COMPILER=ir       TARGET_ENGINE=test.chrome
-  - KOTLIN_JS_COMPILER=ir       TARGET_ENGINE=test.firefox
-  - KOTLIN_JS_COMPILER=ir       TARGET_ENGINE=test.node
-  - KOTLIN_JS_COMPILER=legacy   TARGET_ENGINE=test.chrome
-  - KOTLIN_JS_COMPILER=legacy   TARGET_ENGINE=test.firefox
-  - KOTLIN_JS_COMPILER=legacy   TARGET_ENGINE=test.node
+  matrix:
+    - KOTLIN_JS_COMPILER=ir       TARGET_ENGINE=test.chrome
+    - KOTLIN_JS_COMPILER=ir       TARGET_ENGINE=test.firefox
+    - KOTLIN_JS_COMPILER=ir       TARGET_ENGINE=test.node
+    - KOTLIN_JS_COMPILER=legacy   TARGET_ENGINE=test.chrome
+    - KOTLIN_JS_COMPILER=legacy   TARGET_ENGINE=test.firefox
+    - KOTLIN_JS_COMPILER=legacy   TARGET_ENGINE=test.node
+  global:
+    secure: eBdzUQ19ybN8sW5zu/mUEinuJB6iugR6CUOQjkuQ/paPGpugzLaQSuyioMv+9kPk1GlfV8yqDbvgy+ScttWoy8ZQpQe9YRyn/dcy9fU0ox/95mZ9FsMF9mmJQnh8CUOJKZiT+Jfy6ZbOoXiqs6x5n+Ye93ftGr11NV19kEz5Gh57k6atyobI2HK4Pp1biw1PJjBxXme+TN10vAvQ4xpDcq5Mxg/ZlEUMA5elnvAPbX30shm+KcKFMJ4nsmkK3ne3SiRV3qTYaOYMWrFmZci3j1vQNqy1PmxS/fyc4LSuqt9oQfrohN2iTStENlOXR7/Y2qc7azUGJfAUKP4Ks5i32FiJ8t+mwikLFOe8Wig3BszA5g2bUxiM8bwDBNGmBCpJXZhrU2BebfcUt4UyZJ0n2iy3e/RfeFi3KgZ9r1yLWiQ19nPflAliiuxE+YsCWsva/Ppulxp5AL+VJGOYInuJmMgUuC/GLOBh4padwP7mulyL9Mud5zP+3jgLPLNh2Nynb7ZFJocTVtOlft5mYI5qPbiD03VVHcUfvFbjFEsFCwmXUFn5QaWs8dd/3CYjfOubcazZnavc3v0gQO1xbiSsKR2radisQE4Eyf67CGOMa9ros5GNBBpmJporjlfHBt15yOB7AcRPzJLUc1H900NPrc9IQVgUbXWOwUq0rg2vvKY=
 
 install: >
     ./gradlew assemble -Pkotlin.js.compiler=${KOTLIN_JS_COMPILER}
     && yarn install
 script: cd test-ts && npm run ${TARGET_ENGINE}
+
+stages:
+  - name: test
+  - name: publish
+    if: tag IS present
+
+jobs:
+  include:
+    - stage: publish
+      script: "./gradlew lib:publish"
