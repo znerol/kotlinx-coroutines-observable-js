@@ -21,7 +21,9 @@ import kotlinx.coroutines.launch
  *     const obs = new Observer(testSubscriber);
  *     obs.subscribe(x => console.log(x));
  */
-fun <T> Flow<T>.asSubscriber(scope: CoroutineScope = GlobalScope): SubscriberFunction<T> = { observer: SubscriptionObserver<T> ->
+fun <T> Flow<T>.asSubscriber(
+    scope: CoroutineScope = GlobalScope
+): SubscriberFunction<T> = { observer: SubscriptionObserver<T> ->
     val job = scope.launch {
         try {
             collect { value ->
@@ -61,15 +63,16 @@ fun <T> Flow<T>.asSubscriber(scope: CoroutineScope = GlobalScope): SubscriberFun
  *     const obs = Observable.of(1,2,3);
  *     printInKotlin(obs);
  */
-fun <T> Observable<T>.asFlow(scope: CoroutineScope = GlobalScope): Flow<T> = flow {
+fun <T> Observable<T>.asFlow(
+    scope: CoroutineScope = GlobalScope
+): Flow<T> = flow {
     val channel = Channel<T>()
     val subscription = subscribe(ChannelObserver(channel, scope))
     try {
-        for(value in channel) {
+        for (value in channel) {
             emit(value)
         }
-    }
-    finally {
+    } finally {
         subscription.unsubscribe()
     }
 }

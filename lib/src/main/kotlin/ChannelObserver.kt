@@ -9,8 +9,8 @@ import kotlinx.coroutines.launch
  * TC39 [Observer] which uses a [SendChannel] to pass values to a flow.
  */
 class ChannelObserver<T>(
-        private val channel: SendChannel<T>,
-        private val scope: CoroutineScope
+    private val channel: SendChannel<T>,
+    private val scope: CoroutineScope
 ) : Observer<T> {
     override fun next(value: T) {
         scope.launch {
@@ -20,11 +20,13 @@ class ChannelObserver<T>(
 
     override fun error(err: Any) {
         scope.launch {
-            channel.close(if (err is Throwable) {
-                err
-            } else {
-                RuntimeException("$err")
-            })
+            channel.close(
+                if (err is Throwable) {
+                    err
+                } else {
+                    RuntimeException("$err")
+                }
+            )
         }
     }
 
