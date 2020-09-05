@@ -109,7 +109,7 @@ bintray {
         version.apply {
             name = rootProject.version.toString()
             desc = pomDesc
-            vcsTag = "${rootProject.version}"
+            vcsTag = "v${rootProject.version}"
         }
     }
 }
