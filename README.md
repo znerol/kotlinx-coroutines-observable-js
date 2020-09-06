@@ -2,6 +2,7 @@ Kotlin flow compatibility with TC39 observable
 ==============================================
 
 [![Build Status](https://travis-ci.org/znerol/kotlinx-coroutines-observable-js.svg?branch=master)](https://travis-ci.org/znerol/kotlinx-coroutines-observable-js)
+[![Download](https://api.bintray.com/packages/znerol/kotlinx/kotlinx-coroutines-observable-js/images/download.svg)](https://bintray.com/znerol/kotlinx/kotlinx-coroutines-observable-js/_latestVersion)
 
 `Flow.asSubscriber()` extension function turns a [kotlin flow][1] into a [TC39
 SubscriberFunction][2] suitable for consumption by compliant reactive
